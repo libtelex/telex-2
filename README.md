@@ -5,6 +5,8 @@
 
 TELEX-2 recognises, and formats, telephone numbers using [PHP](https://www.php.net/).
 
+TELEX-2 is used by [SeeTheWorld](https://www.seetheworld.com/).
+
 ## Background
 
 TELEX-2 is yet another attempt at recognising, and formatting, telephone numbers using PHP; it is an evolution of [Telex](https://github.com/libtelex/telex), which does a slightly better job than some much older code.
