@@ -2,9 +2,6 @@
 
 namespace Libtelex\Telex2;
 
-use function preg_replace;
-use function strlen;
-
 use const null;
 
 /**
@@ -28,13 +25,6 @@ class TelephoneNumber
      * The raw, source string
      */
     private string $source;
-
-    /**
-     * Just the digits of the source string
-     */
-    private string $sourceDigits;
-
-    private int $numSourceDigits;
 
     /**
      * The ITU-T E.164 code
@@ -66,13 +56,9 @@ class TelephoneNumber
         ;
     }
 
-    public function setSource(string $string): self
+    private function setSource(string $string): self
     {
         $this->source = $string;
-        // For convenience:
-        /** @phpstan-ignore-next-line For now, allow it to break */
-        $this->sourceDigits = preg_replace('~\D~', '', $this->source);
-        $this->numSourceDigits = strlen($this->sourceDigits);
 
         return $this;
     }
@@ -80,16 +66,6 @@ class TelephoneNumber
     public function getSource(): string
     {
         return $this->source;
-    }
-
-    public function getSourceDigits(): string
-    {
-        return $this->sourceDigits;
-    }
-
-    public function getNumSourceDigits(): int
-    {
-        return $this->numSourceDigits;
     }
 
     private function setCountryCallingCode(string $code = ''): self
@@ -104,6 +80,11 @@ class TelephoneNumber
         return $this->countryCallingCode;
     }
 
+    public function hasCountryCallingCode(): bool
+    {
+        return '' !== $this->getCountryCallingCode();
+    }
+
     private function setNationalNumber(string $string = ''): self
     {
         $this->nationalNumber = $string;
@@ -116,7 +97,7 @@ class TelephoneNumber
         return $this->nationalNumber;
     }
 
-    public function setType(int|null $id): self
+    private function setType(int|null $id): self
     {
         $this->type = $id;
 
@@ -128,7 +109,7 @@ class TelephoneNumber
         return $this->type;
     }
 
-    public function setFormatted(string|null $formatted): self
+    private function setFormatted(string|null $formatted): self
     {
         $this->formatted = $formatted;
 

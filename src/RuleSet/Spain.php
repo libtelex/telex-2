@@ -132,6 +132,9 @@ final class Spain implements RuleSetInterface
             Utils::startsWith('(?:6|7[1-9])', $nationalNumber)
                 => TelephoneNumber::TYPE_MOBILE,
 
+            Utils::startsWith('90[12]', $nationalNumber)
+                => TelephoneNumber::TYPE_NON_GEOGRAPHIC,
+
             default
                 => null,
         };

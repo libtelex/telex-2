@@ -3,12 +3,12 @@
 namespace Libtelex\Telex2\RuleSet;
 
 use Libtelex\Telex2\RuleSetInterface;
+use Libtelex\Telex2\StringObject;
 use Libtelex\Telex2\TelephoneNumber;
 use Libtelex\Telex2\Utils;
 
 use function array_keys;
 use function implode;
-use function preg_replace;
 use function str_split;
 
 use const false;
@@ -330,8 +330,11 @@ final class France implements RuleSetInterface
         $countryCallingCode = $this->getCountryCallingCode();
 
         $numberClusters = str_split($nationalNumber, 2);
-        // Remove the trunk code
-        $numberClusters[0] = preg_replace('/^' . $this->getTrunkCode() . '/', '', $numberClusters[0]);
+
+        $numberClusters[0] = (new StringObject($numberClusters[0]))
+            ->deleteLeft($this->getTrunkCode())
+            ->getValue()
+        ;
 
         $telephoneNumber->matchForCountry(
             $countryCallingCode,

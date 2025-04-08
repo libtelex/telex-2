@@ -4,6 +4,7 @@ namespace Libtelex\Telex2;
 
 use Libtelex\Telex2\MatchStep\CalculateTheBestMatch;
 use Libtelex\Telex2\MatchStep\CreatePermutations;
+use Libtelex\Telex2\MatchStep\TriageRawInput;
 use Libtelex\Telex2\RuleSet\Denmark;
 use Libtelex\Telex2\RuleSet\France;
 use Libtelex\Telex2\RuleSet\Italy;
@@ -68,6 +69,7 @@ class Telex2
     {
         if (!isset($this->steps)) {
             $this->steps = [
+                new TriageRawInput(),
                 new CreatePermutations(),
                 new CalculateTheBestMatch(),
             ];
@@ -85,7 +87,7 @@ class Telex2
             $outputFromPrev = new TelephoneNumber($string);
 
             foreach ($this->getSteps() as $step) {
-                $outputFromCurr = $step($outputFromPrev, $ruleSet);
+                $outputFromCurr = $step($ruleSet, $outputFromPrev);
 
                 if (null === $outputFromCurr) {
                     // (No output; try a different rule-set)

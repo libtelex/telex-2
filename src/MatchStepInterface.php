@@ -8,7 +8,7 @@ interface MatchStepInterface
      * Strictly `null` if unsuccessful
      */
     public function __invoke(
-        mixed $input,
         RuleSetInterface $ruleSet,
+        mixed $input,
     ): mixed;
 }

@@ -4,6 +4,7 @@ namespace Libtelex\Telex2\MatchStep;
 
 use Libtelex\Telex2\MatchStepInterface;
 use Libtelex\Telex2\RuleSetInterface;
+use Libtelex\Telex2\StringObject;
 use Libtelex\Telex2\TelephoneNumber;
 
 use function array_filter;
@@ -22,6 +23,7 @@ use const true;
 
 /**
  * @phpstan-type CandidateArray array{string,string}
+ * @internal
  */
 final class CreatePermutations implements MatchStepInterface
 {
@@ -45,14 +47,39 @@ final class CreatePermutations implements MatchStepInterface
      * @phpstan-return TelephoneNumber[]|null
      */
     public function __invoke(
-        mixed $input,
         RuleSetInterface $ruleSet,
+        mixed $input,
     ): array|null {
-        $countryCallingCode = $ruleSet->getCountryCallingCode();
-        $sourceDigits = $input->getSourceDigits();
         $trunkCode = $ruleSet->getTrunkCode();
         /** @var int[] */
         $nationalNumberLengths = (array) $ruleSet->getNationalNumberLength();
+
+        // (We can take a shortcut if we've already been able to split the number into its main components)
+        if ($input->hasCountryCallingCode()) {
+            $candidate = $this->filterCandidate(
+                [$input->getCountryCallingCode(), $input->getNationalNumber()],
+                $trunkCode,
+                $nationalNumberLengths,
+            );
+
+            if (false === $candidate) {
+                return null;
+            }
+
+            $input->setMainNumbers(...$candidate);
+
+            return [$input];
+        }
+
+        // (Things get a bit murkier from now on because we don't know if we're looking at a weirdly-formatted
+        // international number, or a national number)
+
+        $countryCallingCode = $ruleSet->getCountryCallingCode();
+
+        $sourceDigits = (new StringObject($input->getSource()))
+            ->onlyDigits()
+            ->getValue()
+        ;
 
         $candidates = [];
 
@@ -71,8 +98,8 @@ final class CreatePermutations implements MatchStepInterface
             );
         }
 
-        // 2. A portable international number, with/out superfluous digits (e.g. "+44 (0)1234 567890" or
-        //    "+44 1234 567890")
+        // 2. A *non-standard* portable international number, with/out superfluous digits (e.g. "44 (0)1234 567890" or
+        //    "44 1234 567890").  (Remember: we've already dealt with numbers starting something like "+44 ".)
 
         $portableIntlNumberRegExp = "~^{$countryCallingCode}(.*)~";
         $matches = [];
@@ -106,16 +133,6 @@ final class CreatePermutations implements MatchStepInterface
         );
     }
 
-    private function applyTrunkCode(
-        string $nationalNumber,
-        string $trunkCode,
-    ): string {
-        return '' === $trunkCode || str_starts_with($nationalNumber, $trunkCode)
-            ? $nationalNumber
-            : $trunkCode . $nationalNumber
-        ;
-    }
-
     /**
      * @phpstan-param CandidateArray $candidate
      * @param int[] $nationalNumberLengths
@@ -131,9 +148,20 @@ final class CreatePermutations implements MatchStepInterface
         // - "01234 567890" (from a national-only number, or an incorrectly-formatted international number for a plan
         //   with a trunk code)
 
-        // Make sure the national number is complete before we take any further steps: if the country's plan specifies a
-        // trunk code then make sure the number includes it
-        $candidate[1] = $this->applyTrunkCode($candidate[1], $trunkCode);
+        // (If the candidate contains no country dialling code, we must treat it as a national number.  In that case, we
+        // mustn't touch the national component: only in international numbers can -- and should -- the trunk code be
+        // omitted.)
+        if ('' !== $candidate[0]) {
+            // Make sure the national number is complete before we take any further steps: if the country's plan
+            // specifies a trunk code then make sure the number includes it:
+
+            $nationalNumber = $candidate[1];
+
+            $candidate[1] = '' === $trunkCode || str_starts_with($nationalNumber, $trunkCode)
+                ? $nationalNumber
+                : $trunkCode . $nationalNumber
+            ;
+        }
 
         return in_array(strlen($candidate[1]), $nationalNumberLengths, true)
             ? $candidate

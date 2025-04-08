@@ -8,14 +8,17 @@ use Libtelex\Telex2\TelephoneNumber;
 
 use const null;
 
+/**
+ * @internal
+ */
 final class CalculateTheBestMatch implements MatchStepInterface
 {
     /**
      * @param TelephoneNumber[] $input
      */
     public function __invoke(
-        mixed $input,
         RuleSetInterface $ruleSet,
+        mixed $input,
     ): TelephoneNumber|null {
         // (Assumes that the telephone numbers are in priority order)
         foreach ($input as $telephoneNumber) {
