@@ -1,6 +1,6 @@
 {
     "name": "libtelex/telex-2",
-    "description": "TELEX-2 recognises, and formats, telephone numbers using PHP",
+    "description": "Telephone numbers matched, validated, formatted, using PHP",
     "type": "library",
     "license": "ISC",
     "authors": [

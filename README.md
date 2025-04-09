@@ -1,12 +1,12 @@
 # TELEX-2
 
+Telephone numbers matched, validated, formatted, using [PHP](https://www.php.net/).
+
 > [!WARNING]
 > TELEX-2 is a work in progress and does not yet offer the same functionality as its earlier incarnation, [Telex](https://github.com/libtelex/telex)
 
 > [!WARNING]
 > Only a small selection of European countries is supported at present&mdash;find out which ones by looking in `src/RuleSet`&mdash;and the rule-sets that *have* been implemented may not correctly recognise all of the country's numbers.
-
-TELEX-2 recognises, and formats, telephone numbers using [PHP](https://www.php.net/).
 
 TELEX-2 is used by [SeeTheWorld](https://www.seetheworld.com/).
 
