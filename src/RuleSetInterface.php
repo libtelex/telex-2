@@ -5,7 +5,14 @@ namespace Libtelex\Telex2;
 interface RuleSetInterface
 {
     /**
+     * Returns the ISO 3166-1 alpha-2 code of the country to which the rule-set relates
+     */
+    public function getIsoAlpha2CountryCode(): string;
+
+    /**
      * Returns the ITU-T E.164 code
+     *
+     * @todo Rename this?
      */
     public function getCountryCallingCode(): string;
 

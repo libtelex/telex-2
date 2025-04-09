@@ -51,6 +51,14 @@ final class Switzerland implements RuleSetInterface
     /**
      * @override
      */
+    public function getIsoAlpha2CountryCode(): string
+    {
+        return 'CH';
+    }
+
+    /**
+     * @override
+     */
     public function getCountryCallingCode(): string
     {
         return '41';
@@ -112,6 +120,7 @@ final class Switzerland implements RuleSetInterface
         ;
 
         $telephoneNumber->matchForCountry(
+            $this->getIsoAlpha2CountryCode(),
             $countryCallingCode,
             $telephoneNumberType,
             "+{$countryCallingCode} " . implode(' ', $numberClusters),

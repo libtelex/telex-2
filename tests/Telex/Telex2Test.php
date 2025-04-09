@@ -30,21 +30,21 @@ class Telex2Test extends TestCase
             [
                 (new TelephoneNumber('+34 971 897 542'))
                     ->setMainNumbers('34', '971897542')
-                    ->matchForCountry('34', TelephoneNumber::TYPE_FIXED_LINE, '+34 971 897 542')
+                    ->matchForCountry('ES', '34', TelephoneNumber::TYPE_FIXED_LINE, '+34 971 897 542')
                 ,
                 '+34 971 897 542',
             ],
             [
                 (new TelephoneNumber('+34 644 450 285'))
                     ->setMainNumbers('34', '644450285')
-                    ->matchForCountry('34', TelephoneNumber::TYPE_MOBILE, '+34 644 450 285')
+                    ->matchForCountry('ES', '34', TelephoneNumber::TYPE_MOBILE, '+34 644 450 285')
                 ,
                 '+34 644 450 285',
             ],
             [
                 (new TelephoneNumber('+34 902 101 001'))
                     ->setMainNumbers('34', '902101001')
-                    ->matchForCountry('34', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+34 902 101 001')
+                    ->matchForCountry('ES', '34', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+34 902 101 001')
                 ,
                 '+34 902 101 001',
             ],
@@ -59,21 +59,21 @@ class Telex2Test extends TestCase
             [
                 (new TelephoneNumber('+33 (0)4 50 79 09 41'))
                     ->setMainNumbers('33', '0450790941')
-                    ->matchForCountry('33', TelephoneNumber::TYPE_FIXED_LINE, '+33 4 50 79 09 41')
+                    ->matchForCountry('FR', '33', TelephoneNumber::TYPE_FIXED_LINE, '+33 4 50 79 09 41')
                 ,
                 '+33 (0)4 50 79 09 41',
             ],
             [
                 (new TelephoneNumber('+33 6 34 04 04 67'))
                     ->setMainNumbers('33', '0634040467')
-                    ->matchForCountry('33', TelephoneNumber::TYPE_MOBILE, '+33 6 34 04 04 67')
+                    ->matchForCountry('FR', '33', TelephoneNumber::TYPE_MOBILE, '+33 6 34 04 04 67')
                 ,
                 '+33 6 34 04 04 67',
             ],
             [
                 (new TelephoneNumber('+33 (0)9 83 02 14 16'))
                     ->setMainNumbers('33', '0983021416')
-                    ->matchForCountry('33', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+33 9 83 02 14 16')
+                    ->matchForCountry('FR', '33', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+33 9 83 02 14 16')
                 ,
                 '+33 (0)9 83 02 14 16',
             ],
@@ -84,21 +84,21 @@ class Telex2Test extends TestCase
             [
                 (new TelephoneNumber('+41 (0) 277 71 24 58'))
                     ->setMainNumbers('41', '0277712458')
-                    ->matchForCountry('41', TelephoneNumber::TYPE_FIXED_LINE, '+41 27 771 24 58')
+                    ->matchForCountry('CH', '41', TelephoneNumber::TYPE_FIXED_LINE, '+41 27 771 24 58')
                 ,
                 '+41 (0) 277 71 24 58',
             ],
             [
                 (new TelephoneNumber('+41 (0)76 575 23 94'))
                     ->setMainNumbers('41', '0765752394')
-                    ->matchForCountry('41', TelephoneNumber::TYPE_MOBILE, '+41 76 575 23 94')
+                    ->matchForCountry('CH', '41', TelephoneNumber::TYPE_MOBILE, '+41 76 575 23 94')
                 ,
                 '+41 (0)76 575 23 94',
             ],
             [
                 (new TelephoneNumber('0041 800 333 313'))
                     ->setMainNumbers('41', '0800333313')
-                    ->matchForCountry('41', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+41 80 033 33 13')
+                    ->matchForCountry('CH', '41', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+41 80 033 33 13')
                 ,
                 '0041 800 333 313',
             ],
@@ -109,14 +109,14 @@ class Telex2Test extends TestCase
             [
                 (new TelephoneNumber('+39 (0)3 93 94 21'))
                     ->setMainNumbers('39', '03939421')
-                    ->matchForCountry('39', TelephoneNumber::TYPE_FIXED_LINE, '+39 039 39421')
+                    ->matchForCountry('IT', '39', TelephoneNumber::TYPE_FIXED_LINE, '+39 039 39421')
                 ,
                 '+39 (0)3 93 94 21',
             ],
             [
                 (new TelephoneNumber('+39 351 6784830'))
                     ->setMainNumbers('39', '3516784830')
-                    ->matchForCountry('39', TelephoneNumber::TYPE_MOBILE, '+39 3516 784830')
+                    ->matchForCountry('IT', '39', TelephoneNumber::TYPE_MOBILE, '+39 3516 784830')
                 ,
                 '+39 351 6784830',
             ],
@@ -128,14 +128,14 @@ class Telex2Test extends TestCase
             [
                 (new TelephoneNumber('+377 93 15 36 00'))
                     ->setMainNumbers('377', '93153600')
-                    ->matchForCountry('377', TelephoneNumber::TYPE_FIXED_LINE, '+377 93 15 36 00')
+                    ->matchForCountry('MC', '377', TelephoneNumber::TYPE_FIXED_LINE, '+377 93 15 36 00')
                 ,
                 '+377 93 15 36 00',
             ],
             [
                 (new TelephoneNumber('+377 93 50 12 12'))
                     ->setMainNumbers('377', '93501212')
-                    ->matchForCountry('377', TelephoneNumber::TYPE_FIXED_LINE, '+377 93 50 12 12')
+                    ->matchForCountry('MC', '377', TelephoneNumber::TYPE_FIXED_LINE, '+377 93 50 12 12')
                 ,
                 '+377 93 50 12 12',
             ],
@@ -146,21 +146,21 @@ class Telex2Test extends TestCase
             [
                 (new TelephoneNumber('+44 (0)1572 823352'))
                     ->setMainNumbers('44', '01572823352')
-                    ->matchForCountry('44', TelephoneNumber::TYPE_FIXED_LINE, '+44 1572 823352')
+                    ->matchForCountry('GB', '44', TelephoneNumber::TYPE_FIXED_LINE, '+44 1572 823352')
                 ,
                 '+44 (0)1572 823352',
             ],
             [
                 (new TelephoneNumber('+44 (0)785 056 6978'))
                     ->setMainNumbers('44', '07850566978')
-                    ->matchForCountry('44', TelephoneNumber::TYPE_MOBILE, '+44 7850 566978')
+                    ->matchForCountry('GB', '44', TelephoneNumber::TYPE_MOBILE, '+44 7850 566978')
                 ,
                 '+44 (0)785 056 6978',
             ],
             [
                 (new TelephoneNumber('+44 (0)345 021 0222'))
                     ->setMainNumbers('44', '03450210222')
-                    ->matchForCountry('44', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+44 345 021 0222')
+                    ->matchForCountry('GB', '44', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+44 345 021 0222')
                 ,
                 '+44 (0)345 021 0222',
             ],
@@ -171,21 +171,21 @@ class Telex2Test extends TestCase
             [
                 (new TelephoneNumber('+45 35 36 66 00'))
                     ->setMainNumbers('45', '35366600')
-                    ->matchForCountry('45', TelephoneNumber::TYPE_FIXED_LINE, '+45 35 36 66 00')
+                    ->matchForCountry('DK', '45', TelephoneNumber::TYPE_FIXED_LINE, '+45 35 36 66 00')
                 ,
                 '+45 35 36 66 00',
             ],
             [
                 (new TelephoneNumber('+45 40682739'))
                     ->setMainNumbers('45', '40682739')
-                    ->matchForCountry('45', TelephoneNumber::TYPE_MOBILE, '+45 40 68 27 39')
+                    ->matchForCountry('DK', '45', TelephoneNumber::TYPE_MOBILE, '+45 40 68 27 39')
                 ,
                 '+45 40682739',
             ],
             [
                 (new TelephoneNumber('+45 70 10 50 95'))
                     ->setMainNumbers('45', '70105095')
-                    ->matchForCountry('45', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+45 70 10 50 95')
+                    ->matchForCountry('DK', '45', TelephoneNumber::TYPE_NON_GEOGRAPHIC, '+45 70 10 50 95')
                 ,
                 '+45 70 10 50 95',
             ],

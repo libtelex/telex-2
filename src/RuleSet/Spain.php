@@ -94,6 +94,14 @@ final class Spain implements RuleSetInterface
     /**
      * @override
      */
+    public function getIsoAlpha2CountryCode(): string
+    {
+        return 'ES';
+    }
+
+    /**
+     * @override
+     */
     public function getCountryCallingCode(): string
     {
         return '34';
@@ -158,6 +166,7 @@ final class Spain implements RuleSetInterface
         $countryCallingCode = $this->getCountryCallingCode();
 
         $telephoneNumber->matchForCountry(
+            $this->getIsoAlpha2CountryCode(),
             $countryCallingCode,
             $telephoneNumberType,
             "+{$countryCallingCode} " . implode(' ', $numberClusters),

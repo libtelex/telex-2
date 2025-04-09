@@ -51,6 +51,14 @@ final class Denmark implements RuleSetInterface
     /**
      * @override
      */
+    public function getIsoAlpha2CountryCode(): string
+    {
+        return 'DK';
+    }
+
+    /**
+     * @override
+     */
     public function getCountryCallingCode(): string
     {
         return '45';
@@ -105,6 +113,7 @@ final class Denmark implements RuleSetInterface
         $countryCallingCode = $this->getCountryCallingCode();
 
         $telephoneNumber->matchForCountry(
+            $this->getIsoAlpha2CountryCode(),
             $countryCallingCode,
             $telephoneNumberType,
             "+{$countryCallingCode} " . implode(' ', str_split($nationalNumber, 2)),

@@ -21,6 +21,14 @@ final class Monaco implements RuleSetInterface
     /**
      * @override
      */
+    public function getIsoAlpha2CountryCode(): string
+    {
+        return 'MC';
+    }
+
+    /**
+     * @override
+     */
     public function getCountryCallingCode(): string
     {
         return '377';
@@ -74,6 +82,7 @@ final class Monaco implements RuleSetInterface
         $numberClusters = str_split($nationalNumber, 2);
 
         $telephoneNumber->matchForCountry(
+            $this->getIsoAlpha2CountryCode(),
             $countryCallingCode,
             $telephoneNumberType,
             "+{$countryCallingCode} " . implode(' ', $numberClusters),

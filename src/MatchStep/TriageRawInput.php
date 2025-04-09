@@ -42,9 +42,7 @@ final class TriageRawInput implements MatchStepInterface
         );
 
         if ($telNumAppearsToContainACountryDiallingCode) {
-            $matchedCountryDiallingCode = $matches[1];
-
-            if ($ruleSet->getCountryCallingCode() !== $matchedCountryDiallingCode) {
+            if ($ruleSet->getCountryCallingCode() !== $matches[1]) {
                 // (Reject the input)
                 return null;
             }
@@ -54,7 +52,7 @@ final class TriageRawInput implements MatchStepInterface
                 ->getValue()
             ;
 
-            $input->setMainNumbers($matchedCountryDiallingCode, $nationalNumber);
+            $input->setMainNumbers($ruleSet->getCountryCallingCode(), $nationalNumber);
 
             return $input;
         }

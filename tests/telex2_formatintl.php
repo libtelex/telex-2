@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+// phpcs:disable DanBettles.Debug.PHPOutputFunctions.Found
+
 use Libtelex\Telex2\Telex2;
 
 require '../vendor/autoload.php';

@@ -393,6 +393,14 @@ final class UnitedKingdom implements RuleSetInterface
     /**
      * @override
      */
+    public function getIsoAlpha2CountryCode(): string
+    {
+        return 'GB';
+    }
+
+    /**
+     * @override
+     */
     public function getCountryCallingCode(): string
     {
         return '44';
@@ -472,6 +480,7 @@ final class UnitedKingdom implements RuleSetInterface
         ;
 
         $telephoneNumber->matchForCountry(
+            $this->getIsoAlpha2CountryCode(),
             $countryCallingCode,
             $telephoneNumberType,
             "+{$countryCallingCode} " . implode(' ', $numberClusters),

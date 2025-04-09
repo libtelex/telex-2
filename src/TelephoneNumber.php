@@ -27,9 +27,14 @@ class TelephoneNumber
     private string $source;
 
     /**
-     * The ITU-T E.164 code
+     * ITU-T E.164 code
      */
     private string $countryCallingCode;
+
+    /**
+     * ISO 3166-1 alpha-2 code
+     */
+    private string $isoAlpha2CountryCode;
 
     /**
      * Fully-formed 'national number'
@@ -51,6 +56,7 @@ class TelephoneNumber
             ->setCountryCallingCode()
             ->setNationalNumber()
 
+            ->setIsoAlpha2CountryCode()
             ->setType(null)
             ->setFormatted(null)
         ;
@@ -83,6 +89,18 @@ class TelephoneNumber
     public function hasCountryCallingCode(): bool
     {
         return '' !== $this->getCountryCallingCode();
+    }
+
+    private function setIsoAlpha2CountryCode(string $code = ''): self
+    {
+        $this->isoAlpha2CountryCode = $code;
+
+        return $this;
+    }
+
+    public function getIsoAlpha2CountryCode(): string
+    {
+        return $this->isoAlpha2CountryCode;
     }
 
     private function setNationalNumber(string $string = ''): self
@@ -124,8 +142,6 @@ class TelephoneNumber
     /**
      * For convenience and clarity
      *
-     * N.B. At least a national number is required
-     *
      * @todo Rename this
      */
     public function setMainNumbers(
@@ -144,6 +160,7 @@ class TelephoneNumber
     public function noMatchForCountry(): self
     {
         return $this
+            ->setIsoAlpha2CountryCode()
             ->setCountryCallingCode()
             ->setType(null)
             ->setFormatted(null)
@@ -151,14 +168,16 @@ class TelephoneNumber
     }
 
     /**
-     * For convenience and clarity
+     * For convenience and clarity, 'confirms' a match
      */
     public function matchForCountry(
+        string $isoAlpha2CountryCode,
         string $countryCallingCode,
         int $type,
         string $formatted,
     ): self {
         return $this
+            ->setIsoAlpha2CountryCode($isoAlpha2CountryCode)
             ->setCountryCallingCode($countryCallingCode)
             ->setType($type)
             ->setFormatted($formatted)

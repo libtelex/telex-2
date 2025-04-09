@@ -290,6 +290,14 @@ final class Italy implements RuleSetInterface
     /**
      * @override
      */
+    public function getIsoAlpha2CountryCode(): string
+    {
+        return 'IT';
+    }
+
+    /**
+     * @override
+     */
     public function getCountryCallingCode(): string
     {
         return '39';
@@ -355,6 +363,7 @@ final class Italy implements RuleSetInterface
         $numberClusters = Utils::chunk($nationalNumber, patternOrLength: [strlen($prefix), /* (rest) */]);
 
         $telephoneNumber->matchForCountry(
+            $this->getIsoAlpha2CountryCode(),
             $countryCallingCode,
             $telephoneNumberType,
             "+{$countryCallingCode} " . implode(' ', $numberClusters),
